@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react"
 
 interface LinkItem {
   name: string
@@ -7,13 +8,13 @@ interface LinkItem {
 interface Props {
   title: string
   link: LinkItem[]
-  perf: React.ReactNode
+  icon: LucideIcon
   logo: string
 }
 
-const CustomHeader = ({ title, link, perf, logo }: Props) => {
+const CustomHeader = ({ title, link, icon: Icon, logo }: Props) => {
   return (
-    <header className="bg-[#1A2B3C] text-white px-4 py-3">
+    <header className="bg-[#1A2B3C] text-white px-5 py-3">
 
       
       <div className="flex items-center justify-between">
@@ -31,7 +32,7 @@ const CustomHeader = ({ title, link, perf, logo }: Props) => {
         </h1>
 
         
-        {perf}
+        <Icon size={35}/>
          
 
       </div>

@@ -1,9 +1,11 @@
+import { RouterProvider } from "react-router"
+import { AppRouter } from '../app.router';
 
 
 const MyApp = () => {
     return (
         <>
-            <p className="text-3xl m-4">Hola mundo</p>
+            <RouterProvider router={AppRouter} />
         </>
     )
 }
