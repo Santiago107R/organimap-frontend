@@ -1,13 +1,13 @@
 import { Outlet } from "react-router"
-import CustomFooter from "../components/CustomFooter"
-import CustomHeader from "../components/CustomHeader"
+import CustomFooter from "../../components/CustomFooter"
+import CustomHeader from "../../components/CustomHeader"
 import { User2 } from "lucide-react"
 
 
 const UserLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <CustomHeader title={"Tienda"} link={[{ name: "Horarios", url: '/' }, { name: "Mapa", url: 'mapa' }, { name: "Lista", url: 'lista' },]} logo={'/favicon.svg'} icon={User2}/>
+      <CustomHeader title={"OrganiMap"} link={[{ name: "Horarios", url: '/' }, { name: "Mapa", url: 'mapa' }, { name: "Lista", url: 'lista' },]} logo={'/favicon.svg'} icon={User2}/>
       <main className="grow">
         <Outlet />
       </main>

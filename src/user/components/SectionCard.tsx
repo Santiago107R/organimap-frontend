@@ -21,11 +21,11 @@ const SectionCard = ({ title, description, textButton, img, shadow, url }: Props
 
             <div className="flex flex-col justify-center">
 
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-2xl">
                     {title}
                 </h2>
 
-                <p className="mt-2 max-w-md text-sm">
+                <p className="mt-2 font-montserrat max-w-md text-sm">
                     {description}
                 </p>
 
