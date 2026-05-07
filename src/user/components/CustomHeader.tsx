@@ -1,23 +1,25 @@
 import type { LucideIcon } from "lucide-react"
+import { Link } from "react-router"
 
-interface LinkItem {
+interface LinkItemB {
   name: string
   url: string
 }
 
 interface Props {
   title: string
-  link: LinkItem[]
+  link: LinkItemB[]
   icon: LucideIcon
   logo: string
 }
 
 const CustomHeader = ({ title, link, icon: Icon, logo }: Props) => {
+  
   return (
-    <header className="bg-[#1A2B3C] text-white px-5 py-3">
+    <header className="bg-[#1A2B3C] text-white ">
 
       
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-5 pt-3">
 
         
         <img
@@ -38,15 +40,15 @@ const CustomHeader = ({ title, link, icon: Icon, logo }: Props) => {
       </div>
 
       
-      <nav className="mt-3 pt-3 border-t border-gray-700 flex justify-center gap-4">
+      <nav className="mt-3 py-3 border-t border-[#1A2B3C] flex justify-center gap-4 bg-[#2C3E50]">
         {link.map((item) => (
-          <a
+          <Link
             key={item.name}
-            href={item.url}
+            to={item.url}
             className="hover:text-blue-200"
           >
             {item.name}
-          </a>
+          </Link>
         ))}
       </nav>
 
