@@ -12,17 +12,16 @@ interface Props {
 
 const ScheduleTable = ({ data }: Props) => {
     const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-    // const hours = [
-    //     "07:20-09:35", "09:45-11:45", "12:10-13:10",
-    //     "13:10-15:10", "15:30-17:30", "16:45-17:45",
-    //     "17:45-19:45", "20:05-21:55"
-    // ];
     const hours = Array.from(new Set(data.map(item => item.time))).sort((a, b) => {
         return a.localeCompare(b);
     });
 
     const getEntry = (day: string, hour: string) => {
-        return data.find(item => item.day === day && item.time === hour);
+        const entry = data.find(item => item.day === day && item.time === hour);
+        if (entry && entry.color === undefined) {
+            entry.color = 'blue';
+        } 
+        return entry;
     };
 
     return (
@@ -58,7 +57,7 @@ const ScheduleTable = ({ data }: Props) => {
                                     return (
                                         <td
                                             key={`${day}-${hour}`}
-                                            className={`border border-gray-400 p-1 transition-colors ${entry ? (entry.color || 'bg-blue-200') : ''}`}
+                                            className={`border border-gray-400 p-1 transition-colors ${entry ? (`bg-${entry.color}-200`) : ''}`}
                                         >
                                             {entry && (
                                                 <div className="flex flex-col justify-center leading-tight">

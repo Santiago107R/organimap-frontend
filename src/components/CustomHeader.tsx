@@ -1,14 +1,10 @@
+import type { LinkProp } from "@/user/types/links"
 import type { LucideIcon } from "lucide-react"
 import { Link } from "react-router"
 
-interface LinkItemB {
-  name: string
-  url: string
-}
-
 interface Props {
   title: string
-  link: LinkItemB[]
+  link: LinkProp[]
   icon: LucideIcon
   logo: string
 }
@@ -22,12 +18,12 @@ const CustomHeader = ({ title, link, icon: Icon, logo }: Props) => {
         <Icon className="w-11 h-11 sm:w-13 sm:h-13 md:w-15 md:h-15 mr-8" />
       </div>
 
-      <nav className="sticky top-0 z-50 flex justify-center gap-4 bg-[#2C3E50] text-white border-t border-[#1A2B3C] shadow-lg py-[clamp(0.8rem,3vw,1.1rem)]">
+      <nav className="sticky top-0 z-50 flex justify-center gap-4 px-3 bg-[#2C3E50] text-white border-t border-[#1A2B3C] shadow-lg py-[clamp(0.8rem,3vw,1.1rem)]">
         {link.map((item) => (
           <Link
             key={item.name}
             to={item.url}
-            className="hover:text-blue-200 transition-colors "
+            className="hover:text-blue-200 transition-colors last:ml-auto"
           >
             <p className="font-montserrat text-lg sm:text-2xl md:text-2xl lg:text-27px">{item.name} </p>
           </Link>

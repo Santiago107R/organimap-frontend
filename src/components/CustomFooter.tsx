@@ -1,9 +1,9 @@
-import type { link } from "@/user/types/links";
+import type { LinkProp } from "@/user/types/links";
 import { Link } from "react-router";
 
 interface Props {
   description: string;
-  link?: link[];
+  link?: LinkProp[];
 }
 
 const CustomFooter = ({ description, link }: Props) => {
