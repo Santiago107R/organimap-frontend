@@ -1,30 +1,32 @@
-interface Props {
-    title: string;
-    capacidad: string;
+import type { state } from "../types/aula.response";
 
-    disp: "Disponible" | "Ocupada" | "Mantenimiento";
+interface Props {
+    name: string;
+    description?: string;
+    capacity: number;
+    state: state;
 
     profesor?: string;
     materia?: string;
-    descripcion?: string;
+    curso?: string;
 
-    onClose: () => void;
+    onClose?: () => void;
 }
 
-const AulaModal = ({ title, capacidad, disp, profesor, materia, descripcion, onClose }: Props) => {
+const AulaModal = ({ name, capacity, state, profesor, materia, curso, description, onClose }: Props) => {
 
     const statusStyles = {
-        Disponible: {
+        available: {
             bg: "bg-green-300",
             text: "text-green-700"
         },
 
-        Ocupada: {
+        busy: {
             bg: "bg-red-300",
             text: "text-red-700"
         },
 
-        Mantenimiento: {
+        maintenance: {
             bg: "bg-gray-300",
             text: "text-gray-700"
         }
@@ -37,7 +39,7 @@ const AulaModal = ({ title, capacidad, disp, profesor, materia, descripcion, onC
                 <div className="bg-[#D9D9D9] px-6 py-4 flex justify-between items-start">
 
                     <h1 className="text-3xl font-bold font-anton leading-tight">
-                        {title}
+                        {name}
                     </h1>
 
                     <button onClick={onClose} className="text-2xl text-gray-500 hover:text-black cursor-pointer">
@@ -50,34 +52,48 @@ const AulaModal = ({ title, capacidad, disp, profesor, materia, descripcion, onC
 
                 <div className="p-6 flex flex-col gap-6">
 
-                    <div className={`rounded-full py-3 text-center ${statusStyles[disp].bg}`}>
-                        <p className={`text-3xl font-bold font-anton ${statusStyles[disp].text}`} >
-                            Estado: {disp}
+                    <div className={`rounded-full py-3 text-center ${statusStyles[state].bg}`}>
+                        <p className={`text-3xl font-bold font-anton ${statusStyles[state].text}`} >
+                            {state === 'available' ? 'Disponible' : state === 'maintenance' ? 'Mantenimiento' : 'Ocupado'}
+
                         </p>
                     </div>
 
                     <div className="flex flex-col gap-5 text-2xl">
-                        <p>
-                            <span className="font-bold"> Profe a cargo: </span>
-                            {" "}{profesor}
-                        </p>
+                        {profesor && (
+
+                            <p>
+                                <span className="font-bold"> Profe a cargo:&nbsp; </span>{profesor}
+                            </p>
+                        )
+                        }
+
+                        {materia && (
+
+                            <p>
+                                <span className="font-bold"> Materia:&nbsp; </span>{materia}
+                            </p>
+                        )
+                        }
+
+                        {curso && (
+
+                            <p>
+                                <span className="font-bold"> Curso:&nbsp; </span>{curso}
+                            </p>
+                        )
+                        }
 
                         <p>
-                            <span className="font-bold"> Materia: </span>
-                            {" "}{materia}
-                        </p>
-
-                        <p>
-                            <span className="font-bold"> Capacidad: </span>
-                            {" "} {capacidad}
+                            <span className="font-bold"> Capacidad:&nbsp; </span>{capacity}
                         </p>
 
                     </div>
 
                     <div>
                         <p className="text-2xl font-bold">
-                            Descripción:
-                            <span className="font-normal text-gray-700"> {" "} {descripcion} </span>
+                            Descripción:&nbsp;
+                            <span className="font-normal text-gray-700">{description} </span>
                         </p>
                     </div>
                 </div>

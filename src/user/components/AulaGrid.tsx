@@ -3,11 +3,13 @@ import AulaCard from "./AulaCard";
 
 interface Props {
     aulas: Aula[];
+
+    handleModal?: ({ name }: Partial<Aula>) => void;
 }
 
-const AulaGrid = ({ aulas }: Props) => {
+const AulaGrid = ({ aulas, handleModal }: Props) => {
 
-    if (!aulas || aulas.length == 0 ) {
+    if (!aulas || aulas.length == 0) {
         return (
             <div className="flex justify-center items-center">
                 <p>No hay aulas cargadas</p>
@@ -19,7 +21,7 @@ const AulaGrid = ({ aulas }: Props) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15">
 
             {aulas.map((aula) => (
-                <AulaCard key={aula.id} name={aula.name} description={aula.description} capacidad={aula.capacity} state={aula.state} shadow />
+                <AulaCard key={aula.name} name={aula.name} capacity={aula.capacity} state={aula.state} shadow handleModal={handleModal}/>
             ))}
 
         </div>

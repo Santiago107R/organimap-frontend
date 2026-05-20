@@ -1,47 +1,38 @@
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
 import AulaFilters from "@/user/components/AulaFilters";
 import AulaGrid from '../../components/AulaGrid';
-import type { Aula, AulaResponse } from '@/user/types/aula.response';
+import useAulaSocket from '@/hooks/useAulaSocket';
+import type { Aula } from "@/user/types/aula.response";
+import AulaModal from "@/user/components/AulaModal";
+import { useState } from "react";
 
 const ListPage = () => {
-  const [aulas, setAulas] = useState<Aula[]>([]);
+  const { aulas } = useAulaSocket();
+  
+  const [selectedAulaName, setSelectedAulaName] = useState<string | null>(null);
 
-  useEffect(() => {
-    const socket = io('https://organimap-backend.onrender.com/api', {
-      transports: ['websocket'],
-    });
+  const currentAula = aulas?.find(aula => aula.name === selectedAulaName);
 
-    socket.on('connect', () => {
-      console.log('Conectado', socket.id);
-      const paginationDto = { limit: 10, offset: 0 };
-
-      socket.emit('findAllAulaSocket', paginationDto);
-    });
-
-    socket.on('aulasUpdated', (data) => {
-      console.log('Aulas actualizadas', data);
-      setAulas(data.aulas ?? data);
-    });
-
-    socket.on('connect_error', (err) => {
-      console.error('Error socket', err);
-    });
-
-    return () => {
-      socket.off('connect');
-      socket.off('aulasUpdated');
-      socket.off('connect_error');
-      socket.disconnect();
-    };
-  }, []);
+  const handleModal = ({ name }: Partial<Aula>)  => {
+    setSelectedAulaName(name || null);
+  };
 
   return (
     <div className="p-10 flex flex-col gap-6">
       <div>
         <AulaFilters />
       </div>
-      <AulaGrid aulas={aulas} />
+      
+      <AulaGrid aulas={aulas} handleModal={handleModal}/>
+
+      {currentAula && (
+        <AulaModal 
+          name={currentAula.name} 
+          description={currentAula.description} 
+          capacity={currentAula.capacity} 
+          state={currentAula.state}  
+          onClose={() => setSelectedAulaName(null)}
+        />
+      )}
     </div>
   );
 };
