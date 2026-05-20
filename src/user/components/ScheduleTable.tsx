@@ -47,12 +47,10 @@ const ScheduleTable = ({ data }: Props) => {
                     <tbody className="text-[10px] md:text-xs font-bold">
                         {hours.map((hour) => (
                             <tr key={hour} className="h-12 md:h-14">
-                                {/* Columna de la hora */}
                                 <td className="border border-gray-400 bg-[#CFCFCF] px-2 whitespace-nowrap">
                                     {hour}
                                 </td>
 
-                                {/* Columnas de los días */}
                                 {days.map(day => {
                                     const entry = getEntry(day, hour);
                                     return (
