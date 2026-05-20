@@ -20,7 +20,7 @@ const ScheduleTable = ({ data }: Props) => {
         const entry = data.find(item => item.day === day && item.time === hour);
         if (entry && entry.color === undefined) {
             entry.color = 'blue';
-        } 
+        }
         return entry;
     };
 
@@ -55,7 +55,12 @@ const ScheduleTable = ({ data }: Props) => {
                                     return (
                                         <td
                                             key={`${day}-${hour}`}
-                                            className={`border border-gray-400 p-1 transition-colors ${entry ? (`bg-${entry.color}-200`) : ''}`}
+                                            className={`border border-gray-400 p-1 transition-colors`}
+                                            style={
+                                                entry
+                                                    ? { backgroundColor: `color-mix(in srgb, ${entry.color}, white 70%)` }
+                                                    : undefined
+                                            }
                                         >
                                             {entry && (
                                                 <div className="flex flex-col justify-center leading-tight">

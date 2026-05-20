@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import AulaFilters from "@/user/components/AulaFilters";
 import AulaGrid from '../../components/AulaGrid';
-import type { Aula } from '@/user/types/aula.response';
+import type { Aula, AulaResponse } from '@/user/types/aula.response';
 
 const ListPage = () => {
-  const [aulas, setAulas] = useState([]);
+  const [aulas, setAulas] = useState<Aula[]>([]);
 
   useEffect(() => {
     const socket = io('https://organimap-backend.onrender.com/api', {
@@ -14,21 +14,14 @@ const ListPage = () => {
 
     socket.on('connect', () => {
       console.log('Conectado', socket.id);
-      const paginationDto = {
-        limit: 10, // o el límite que uses
-        offset: 0,
-      };
+      const paginationDto = { limit: 10, offset: 0 };
 
-      socket.emit('findAllAulaSocket', paginationDto, (data: Aula[]) => {
-        console.log('Data recibida del emit:', data);
-        
-        setAulas(data.aulas);
-      });
+      socket.emit('findAllAulaSocket', paginationDto);
     });
 
     socket.on('aulasUpdated', (data) => {
       console.log('Aulas actualizadas', data);
-      setAulas(data);
+      setAulas(data.aulas ?? data);
     });
 
     socket.on('connect_error', (err) => {
