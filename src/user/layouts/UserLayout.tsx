@@ -7,7 +7,7 @@ import { User2 } from "lucide-react"
 const UserLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <CustomHeader title={"OrganiMap"} link={[{ name: "Horarios", url: '/' }, { name: "Mapa", url: 'mapa' }, { name: "Lista", url: 'lista' },]} logo={'/favicon.svg'} icon={User2}/>
+      <CustomHeader title={"OrganiMap"} link={[{ name: "Mapa", url: '/mapa' }, { name: "Inicio", url: '/' }, { name: "Lista", url: '/lista' }, { name: "Cerrar Sesión", url: '/logout' }]} logo={'/favicon.svg'} icon={User2}/>
       <main className="grow">
         <Outlet />
       </main>
