@@ -1,36 +1,37 @@
 import { useState } from "react";
-import ClassroomModal from "./ClassroomModal";
+import AulaModal from "./AulaModal";
+import type { state } from "../types/aula.response";
 
 
 interface Props {
     shadow?: boolean;
-    title: string;
-    img: string;
-    capacidad: string;
+    name: string;
+    img?: string;
+    capacidad: number;
 
-    disp: "Disponible" | "Ocupada" | "Mantenimiento";
+    state: state;
 
     profesor?: string;
     materia?: string;
-    descripcion?: string;
+    description?: string;
 }
 
-const ClassroomCard = ({shadow, title, img, capacidad, disp, profesor, materia, descripcion }: Props) => {
+const AulaCard = ({ shadow, name, img, capacidad, state, profesor, materia, description }: Props) => {
 
     const [open, setOpen] = useState(false)
 
     const statusColors = {
-        Disponible: "text-green-500",
-        Ocupada: "text-red-500",
-        Mantenimiento: "text-gray-500",
+        available: "text-green-500",
+        busy: "text-red-500",
+        maintenance: "text-gray-500",
     }
 
     return (
         <>
 
             <div
-            onClick={() => setOpen(true)}
-            className={` flex flex-col py-8 px-3 bg-[#D9D9D9] rounded-2xl w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl cursor-pointer transition hover:scale-105 ${shadow && 'shadow-[10px_10px_7px_rgba(0,0,0,0.25)]'} `}
+                onClick={() => setOpen(true)}
+                className={` flex flex-col py-8 px-3 bg-[#D9D9D9] rounded-2xl w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl cursor-pointer transition hover:scale-105 ${shadow && 'shadow-[10px_10px_7px_rgba(0,0,0,0.25)]'} `}
             >
 
                 <div className="flex gap-6 sm:gap-8 md:gap-4 lg:gap-10 ml-8">
@@ -42,7 +43,7 @@ const ClassroomCard = ({shadow, title, img, capacidad, disp, profesor, materia, 
                     />
 
                     <h2 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl font-anton min-h-[2.5em]">
-                        {title}
+                        {name}
                     </h2>
 
                 </div>
@@ -65,21 +66,21 @@ const ClassroomCard = ({shadow, title, img, capacidad, disp, profesor, materia, 
 
                                 {" "}
 
-                                <span className={statusColors[disp]}>
-                                    {disp}
+                                <span className={statusColors[state]}>
+                                    {state}
                                 </span>
                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
-            {
+            {/* {
                 open && (
-                    <ClassroomModal title={title} capacidad={capacidad} disp={disp} profesor={profesor} materia={materia} descripcion={descripcion} onClose={() => setOpen(false)} />
+                    <AulaModal name={name} capacidad={capacidad} state={state} profesor={profesor} materia={materia} description={description} onClose={() => setOpen(false)} />
                 )
-            }
+            } */}
         </>
     )
 }
 
-export default ClassroomCard
+export default AulaCard

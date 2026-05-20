@@ -2,7 +2,7 @@ interface Props {
     placeholder?: string;
 }
 
-const ClassroomFilters = ({ placeholder }: Props) => {
+const AulaFilters = ({ placeholder }: Props) => {
 
     return (
 
@@ -43,4 +43,4 @@ const ClassroomFilters = ({ placeholder }: Props) => {
     )
 }
 
-export default ClassroomFilters
+export default AulaFilters

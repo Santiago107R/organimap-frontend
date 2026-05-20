@@ -11,7 +11,7 @@ interface Props {
     onClose: () => void;
 }
 
-const ClassroomModal = ({title, capacidad, disp, profesor, materia, descripcion, onClose }: Props) => {
+const AulaModal = ({ title, capacidad, disp, profesor, materia, descripcion, onClose }: Props) => {
 
     const statusStyles = {
         Disponible: {
@@ -59,7 +59,7 @@ const ClassroomModal = ({title, capacidad, disp, profesor, materia, descripcion,
                     <div className="flex flex-col gap-5 text-2xl">
                         <p>
                             <span className="font-bold"> Profe a cargo: </span>
-                                {" "}{profesor}
+                            {" "}{profesor}
                         </p>
 
                         <p>
@@ -75,8 +75,8 @@ const ClassroomModal = ({title, capacidad, disp, profesor, materia, descripcion,
                     </div>
 
                     <div>
-                        <p className="text-2xl font-bold"> 
-                            Descripción: 
+                        <p className="text-2xl font-bold">
+                            Descripción:
                             <span className="font-normal text-gray-700"> {" "} {descripcion} </span>
                         </p>
                     </div>
@@ -86,4 +86,4 @@ const ClassroomModal = ({title, capacidad, disp, profesor, materia, descripcion,
     )
 }
 
-export default ClassroomModal
+export default AulaModal
