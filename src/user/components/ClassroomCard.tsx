@@ -1,5 +1,6 @@
-import { useState } from "react"
-import ClassroomModal from "./ClassroomModal"
+import { useState } from "react";
+import ClassroomModal from "./ClassroomModal";
+
 
 interface Props {
     shadow?: boolean;
