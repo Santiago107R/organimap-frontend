@@ -30,6 +30,7 @@ const ListPage = () => {
           description={currentAula.description} 
           capacity={currentAula.capacity} 
           state={currentAula.state}  
+          docenteAula={currentAula.docenteAula}
           onClose={() => setSelectedAulaName(null)}
         />
       )}

@@ -1,105 +1,112 @@
 import type { state } from "../types/aula.response";
+import type { DocenteAulaResponse } from "../types/docente_aula.response";
 
 interface Props {
     name: string;
     description?: string;
     capacity: number;
     state: state;
-
-    profesor?: string;
-    materia?: string;
-    curso?: string;
-
+    docenteAula: DocenteAulaResponse[];
     onClose?: () => void;
 }
 
-const AulaModal = ({ name, capacity, state, profesor, materia, curso, description, onClose }: Props) => {
+const AulaModal = ({ name, capacity, state, description, docenteAula = [], onClose }: Props) => {
 
     const statusStyles = {
-        available: {
-            bg: "bg-green-300",
-            text: "text-green-700"
-        },
+        available: { bg: "bg-green-300", text: "text-green-700" },
+        busy: { bg: "bg-red-300", text: "text-red-700" },
+        maintenance: { bg: "bg-gray-300", text: "text-gray-700" }
+    };
 
-        busy: {
-            bg: "bg-red-300",
-            text: "text-red-700"
-        },
+    const esHorarioActual = (diaClase: string, rangoHorario: string): boolean => {
+        const diasSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
+        const ahora = new Date();
+        
+        const diaActual = diasSemana[ahora.getDay()];
+        if (diaActual.toLowerCase() !== diaClase.toLowerCase()) return false;
 
-        maintenance: {
-            bg: "bg-gray-300",
-            text: "text-gray-700"
+        try {
+            const [inicio, fin] = rangoHorario.split("-"); 
+            const [horaInicio, minInicio] = inicio.split(":").map(Number);
+            const [horaFin, minFin] = fin.split(":").map(Number);
+
+            const horaActual = ahora.getHours();
+            const minActual = ahora.getMinutes();
+
+            const minutosActual = horaActual * 60 + minActual;
+            const minutosInicio = horaInicio * 60 + minInicio;
+            const minutosFin = horaFin * 60 + minFin;
+
+            return minutosActual >= minutosInicio && minutosActual <= minutosFin;
+        } catch (error) {
+            return false; 
         }
-    }
+    };
+
+    const claseActual = docenteAula.find(item => esHorarioActual(item.dia, item.horario));
 
     return (
-
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <div className="bg-[#E7E7E7] w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
                 <div className="bg-[#D9D9D9] px-6 py-4 flex justify-between items-start">
-
                     <h1 className="text-3xl font-bold font-anton leading-tight">
                         {name}
                     </h1>
-
                     <button onClick={onClose} className="text-2xl text-gray-500 hover:text-black cursor-pointer">
-
                         ×
-
                     </button>
-
                 </div>
 
                 <div className="p-6 flex flex-col gap-6">
-
                     <div className={`rounded-full py-3 text-center ${statusStyles[state].bg}`}>
                         <p className={`text-3xl font-bold font-anton ${statusStyles[state].text}`} >
                             {state === 'available' ? 'Disponible' : state === 'maintenance' ? 'Mantenimiento' : 'Ocupado'}
-
                         </p>
                     </div>
 
-                    <div className="flex flex-col gap-5 text-2xl">
-                        {profesor && (
+                    <div className="flex flex-col gap-5 text-2xl max-h-80 overflow-y-auto pr-1">
+                        
+                        {!claseActual ? (
+                            <p className="text-gray-500 text-xl italic my-2">Sin clase en este momento</p>
+                        ) : (
+                            <div className="flex flex-col gap-5">
+                                <p>
+                                    <span className="font-bold">Profe a cargo:&nbsp;</span>
+                                    <span className="text-gray-700">{claseActual.user.name}</span>
+                                </p>
+                                <p>
+                                    <span className="font-bold">Materia:&nbsp;</span>
+                                    <span className="text-gray-700">{claseActual.materia.name}</span>
+                                </p>
+                                <p>
+                                    <span className="font-bold">Curso:&nbsp;</span>
+                                    <span className="text-gray-700">{claseActual.curso.name}</span>
+                                </p>
+                                <p>
+                                    <span className="font-bold">Horario:&nbsp;</span>
+                                    <span className="text-gray-700">{claseActual.dia} de {claseActual.horario}</span>
+                                </p>
+                            </div>
+                        )}
 
-                            <p>
-                                <span className="font-bold"> Profe a cargo:&nbsp; </span>{profesor}
-                            </p>
-                        )
-                        }
+                        <hr className="border-gray-300 my-1" />
 
-                        {materia && (
-
-                            <p>
-                                <span className="font-bold"> Materia:&nbsp; </span>{materia}
-                            </p>
-                        )
-                        }
-
-                        {curso && (
-
-                            <p>
-                                <span className="font-bold"> Curso:&nbsp; </span>{curso}
-                            </p>
-                        )
-                        }
-
-                        <p>
-                            <span className="font-bold"> Capacidad:&nbsp; </span>{capacity}
+                        <p className="text-2xl">
+                            <span className="font-bold">Capacidad:&nbsp;</span>
+                            <span className="text-gray-700">{capacity} alumnos</span>
                         </p>
-
                     </div>
 
                     <div>
                         <p className="text-2xl font-bold">
                             Descripción:&nbsp;
-                            <span className="font-normal text-gray-700">{description} </span>
+                            <span className="font-normal text-gray-700">{description || "Sin descripción"}</span>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AulaModal
+export default AulaModal;
