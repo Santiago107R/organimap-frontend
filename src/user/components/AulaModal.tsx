@@ -18,7 +18,7 @@ const AulaModal = ({ name, capacity, state, description, docenteAula = [], onClo
         maintenance: { bg: "bg-gray-300", text: "text-gray-700" }
     };
 
-    const esHorarioActual = (diaClase: string, rangoHorario: string): boolean => {
+        const esHorarioActual = (diaClase: string, rangoHorario: string): boolean => {
         const diasSemana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
         const ahora = new Date();
         

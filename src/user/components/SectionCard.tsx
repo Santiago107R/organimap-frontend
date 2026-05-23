@@ -11,7 +11,7 @@ interface Props {
 
 const SectionCard = ({ title, description, textButton, img, shadow, url }: Props) => {
     return (
-        <div className={` flex  items-center gap-4  py-5 px-4 bg-[#D9D9D9] rounded-2xl w-full max-w-xs sm:max-w-md sm:gap-6 md:gap-8 md:max-w-lg lg:max-w-xl${shadow && 'shadow-[10px_10px_7px_rgba(0,0,0,0.25)]'}`}>
+        <div className={` flex  items-center gap-4  py-5 px-4 bg-[#D9D9D9] rounded-2xl w-full max-w-xs sm:max-w-md sm:gap-6 md:gap-8  md:max-w-lg lg:max-w-xl ${shadow && 'shadow-[10px_10px_7px_rgba(0,0,0,0.25)]'}`}>
 
             <img
                 src={img}
