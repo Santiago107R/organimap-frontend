@@ -1,8 +1,9 @@
 import { createHashRouter } from "react-router";
-import UserLayout from './src/user/layouts/UserLayout';
-import HomePage from './src/user/pages/home/HomePage';
+import UserLayout from './user/layouts/UserLayout';
+import HomePage from './user/pages/home/HomePage';
 import ListPage from "@/user/pages/list/ListPage";
 import MapPage from "@/user/pages/map/MapPage";
+import LoginPage from "./auth/pages/LoginPage";
 
 export const AppRouter = createHashRouter([
     {
@@ -23,4 +24,9 @@ export const AppRouter = createHashRouter([
             },
         ],
     },
+
+    {
+        path: '/auth',
+        element: <LoginPage />
+    }
 ])
