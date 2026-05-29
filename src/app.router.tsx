@@ -3,7 +3,8 @@ import UserLayout from './user/layouts/UserLayout';
 import HomePage from './user/pages/home/HomePage';
 import ListPage from "@/user/pages/list/ListPage";
 import MapPage from "@/user/pages/map/MapPage";
-import LoginPage from "./auth/pages/LoginPage";
+import LoginPage from "./auth/pages/login/LoginPage";
+import RegisterPage from "./auth/pages/register/RegisterPage";
 
 export const AppRouter = createHashRouter([
     {
@@ -27,6 +28,15 @@ export const AppRouter = createHashRouter([
 
     {
         path: '/auth',
-        element: <LoginPage />
+        children: [
+            {
+                path: 'login',
+                element: <LoginPage />
+            },
+            {
+                path: 'register',
+                element: <RegisterPage />
+            }
+        ]
     }
 ])
